@@ -10,25 +10,31 @@ class MainController extends Controller
 {
     public function index()
     {
-        // // SELECT * FROM products WHERE id = 10
-        // $product = Product::find(10); 
-        // // UPDATE products SET name = 'Changed product', price = 10 WHERE id = 10
-        // // automatically updates updated_at column
-        // $product->product_name = 'Changed product';
-        // $product->price = 10;
-        // $product->save();
+        // _______________________________
+        // HARD DELETE
+        // -------------------------------
+        // $product = Product::find(10);
+        // $product->delete();
 
-        // // mass update
-        // Product::where('price', '<=', 10)
-        //         ->update([
-        //             'price' => 150
-        //         ]);
+        // cleans the table and resets auto increment
+        // Product::truncate();
 
-        // update (if it exists) or create
-        Product::updateOrCreate(
-            ['product_name' => 'Xarope'], // attributes to search by
-            ['price' => 25] // values to update/create
-        );
+        // Product::destroy(1);
+        // Product::destroy(1, 3, 5);
+        // Product::destroy([2, 4, 6]);
+
+        // Product::where('price', '>=', 70)->delete();
+
+        // _______________________________
+        // SOFT DELETE (needs "use SoftDeletes") on model
+        // -------------------------------
+        // $product = Product::find(15);
+        // $product->delete();
+
+        // fetch soft deleted model
+        $product = Product::withTrashed()->find(15);
+        $product->restore();
+
     }
 
     private function showData($data)

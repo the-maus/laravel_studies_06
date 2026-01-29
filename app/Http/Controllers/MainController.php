@@ -52,21 +52,52 @@ class MainController extends Controller
         //         return [];
         //     });
 
-        
-        $product = Product::find(10);
-        echo $product->price;
-        echo '<br>';
+        // $product = Product::find(10);
+        // echo $product->price;
+        // echo '<br>';
 
-        $product->price = 200;
-        echo $product->price;
-        echo '<br>'; 
+        // $product->price = 200;
+        // echo $product->price;
+        // echo '<br>'; 
 
-        $product->refresh(); // get original data 
-        echo $product->price;
-        echo '<br>'; 
-
+        // $product->refresh(); // get original data 
+        // echo $product->price;
+        // echo '<br>'; 
 
         // $this->showData($results);
+
+        // $product = Product::find(10);
+        // echo $product->product_name . '<br>';
+
+        // $product = Product::where('price', '>=', 70)->first();
+        // echo $product->product_name . ' costs $' . $product->price . '<br>';
+
+        // $product = Product::firstWhere('price', '>=', 60);
+        // echo $product->product_name . ' costs $' . $product->price . '<br>';
+
+        // $product = Product::findOr(110, function () {
+        //     echo 'Product not found';
+        // });
+        // if ($product) echo $product->product_name . ' costs $' . $product->price . '<br>';
+
+        // $product = Product::findOrFail(120); // returns default laravel 404 page in case it doesnt exist
+        // echo $product->product_name . ' costs $' . $product->price . '<br>';
+
+        $total_products = Product::count();
+        $product_max_price = Product::max('price');
+        $product_min_price = Product::min('price');
+        $product_avg_price = Product::avg('price');
+        $product_sum_price = Product::sum('price');
+
+        $results = [
+            'total_products'    => $total_products,
+            'product_max_price' => $product_max_price,
+            'product_min_price' => $product_min_price,
+            'product_avg_price' => $product_avg_price,
+            'product_sum_price' => $product_sum_price
+        ];
+
+        $this->showData($results);
     }
 
     private function showData($data)

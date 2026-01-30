@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Client;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
@@ -10,31 +11,38 @@ class MainController extends Controller
 {
     public function index()
     {
-        // _______________________________
-        // HARD DELETE
-        // -------------------------------
-        // $product = Product::find(10);
-        // $product->delete();
+        echo "Eloquent Relations";
 
-        // cleans the table and resets auto increment
-        // Product::truncate();
+    }
 
-        // Product::destroy(1);
-        // Product::destroy(1, 3, 5);
-        // Product::destroy([2, 4, 6]);
+    public function oneToOne()
+    {
+        // // get a client's phone
+        // $phone = Client::find(12)->phone;
+        // echo "Client ID: $phone->client_id | Phone: $phone->phone_number";
+        // echo "<hr>";
 
-        // Product::where('price', '>=', 70)->delete();
+        // // get a client's data with their phone
+        // $client = Client::find(12);
+        // $phone = $client->phone->phone_number;
+        // echo "<br>";
+        // echo "Client Name: $client->client_name <br>";
+        // echo "Client Phone: $phone";
+        // echo "<hr>";
 
-        // _______________________________
-        // SOFT DELETE (needs "use SoftDeletes") on model
-        // -------------------------------
-        // $product = Product::find(15);
-        // $product->delete();
+        // // get a client's data with their phone (using method with)
+        // $client = Client::with('phone')->find(12);
+        // echo "<br>";
+        // echo "Client Name: $client->client_name <br>";
+        // echo "Client Phone: {$client->phone->phone_number}";
+        // echo "<hr>";
 
-        // fetch soft deleted model
-        $product = Product::withTrashed()->find(15);
-        $product->restore();
-
+        // show all client's data with their phone
+        $clients = Client::with('phone')->get();
+        foreach ($clients as $client) {
+            echo "<br>";
+            echo "Client Name: $client->client_name - Phone: {$client->phone->phone_number}";
+        }
     }
 
     private function showData($data)

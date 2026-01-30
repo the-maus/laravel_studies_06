@@ -113,6 +113,42 @@ class MainController extends Controller
             echo "{$client->client_name}<br>";
         }
     }
+
+    public function runningQueries()
+    {
+        // // get a client and its phones (only phones starting with an 8)
+        // $client1 = Client::find(1);
+        // $phones = $client1->phones()->where('phone_number', 'LIKE', '8%')->get();
+        // echo "Client: {$client1->client_name}<br>";
+        // echo "Phones: <br>";
+        // foreach($phones as $phone) {
+        //     echo $phone->phone_number . '<br>';
+        // }
+
+        // // get all product bought by a client, but only the ones that cost more than 50
+        // $client2 = Client::find(1);
+        // $products = $client2->products()->where('price', '>', 50)->get();
+        // echo "Client: {$client2->client_name}<br>";
+        // echo "Products: <br>";
+        // foreach($products as $product) {
+        //     echo "$product->product_name - $product->price <br>";
+        // }
+
+
+        // distinct() to avoid repeated products orderBy() to sort them
+        $client2 = Client::find(1);
+        $products = $client2->products()
+                        ->where('price', '>', 50)
+                        ->distinct()
+                        ->orderBy('product_name')
+                        ->get();
+
+        echo "Client: {$client2->client_name}<br>";
+        echo "Products: <br>";
+        foreach($products as $product) {
+            echo "$product->product_name - $product->price <br>";
+        }
+    }
     
     private function showData($data)
     {

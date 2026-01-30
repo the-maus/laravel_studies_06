@@ -12,3 +12,4 @@ Route::get('/many-to-many', [MainController::class, 'manyToMany']);
 Route::get('/queries', [MainController::class, 'runningQueries']);
 Route::get('/same-results', [MainController::class, 'sameResults']);
 Route::get('/collections', [MainController::class, 'collections']);
+Route::get('/serialization', [MainController::class, 'serialization']);

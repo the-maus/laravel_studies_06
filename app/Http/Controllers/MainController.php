@@ -218,6 +218,34 @@ class MainController extends Controller
         $clients->makeHidden(['id', 'updated_at', 'deleted_at', 'created_at']);
         $this->showData($clients->toArray());
     }
+
+    public function serialization()
+    {
+        // // convert objects to ARRAY
+        // $clients = Client::take(10)->get();
+        // $clients = $clients->toArray();
+        // $this->showData($clients);
+
+        // $client = Client::find(1)->toArray();
+        // $this->showData($client);
+
+        // // convert objects to JSON
+        // $clients = Client::take(10)->get()->toJson(JSON_PRETTY_PRINT);
+        // echo '<pre>';
+        // echo $clients;
+
+        // $clients = Client::take(10)
+        //                     ->get()
+        //                     ->setHidden(['id', 'active', 'created_at', 'updated_at', 'deleted_at'])
+        //                     ->toJson(JSON_PRETTY_PRINT);
+        // $this->showData($clients);
+
+        $clients = Client::take(10)
+                            ->get()
+                            ->setVisible(['client_name', 'email'])
+                            ->toJson(JSON_PRETTY_PRINT);
+        $this->showData($clients);
+    }
     
     private function showData($data)
     {

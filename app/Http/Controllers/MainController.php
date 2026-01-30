@@ -92,6 +92,27 @@ class MainController extends Controller
         echo "Phone: {$phone->phone_number} <br>";
         echo "Client: {$phone->client->client_name}";
     }
+
+    public function manyToMany()
+    {
+        // // find a client and all the products they bought
+        // $client = Client::find(1);
+        // $products = $client->products;
+        // echo "Client: {$client->client_name}<br>";
+        // echo "Products: <br>";
+        // foreach($products as $product) {
+        //     echo "{$product->product_name}<br>";
+        // }
+
+        // find all clients that bought a product
+        $product = Product::find(1);
+        $clients = $product->clients;
+        echo "Product: {$product->product_name}<br>";
+        echo "Clients: <br>";
+        foreach($clients as $client) {
+            echo "{$client->client_name}<br>";
+        }
+    }
     
     private function showData($data)
     {

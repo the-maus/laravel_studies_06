@@ -173,6 +173,51 @@ class MainController extends Controller
             echo "$product->product_name - $product->price <br>";
         }
     }
+
+    public function collections()
+    {
+        // // get first 5 clients
+        // $clients = Client::take(5)->get();
+        // foreach($clients as $client) {
+        //     echo "$client->client_name<br>";
+        // }
+
+        // // APPEND
+        // $clients = Client::take(5)->get();
+        // $clients->each->append(['client_name_uppercase', 'email_domain']);
+
+        // foreach($clients as $client) {
+        //     $client->client_name_uppercase = strtoupper($client->client_name);
+        //     $client->email_domain = explode('@', $client->email)[1];
+        // }
+
+        // foreach($clients as $client) {
+        //     echo "$client->client_name - $client->client_name_uppercase - $client->email_domain<br>";
+        // }
+
+        // // CONTAINS
+        // $clients = Client::take(5)->get();
+        // // checks if the list contains any client with that client_name and returns a boolean
+        // $results = $clients->contains('client_name', 'Mirela Alice Lopes'); 
+        // dd($results);
+
+        // DIFF (items from first array that aren't on the second one)
+        // $clients1 = Client::take(5)->get();
+        // $clients2 = Client::take(3)->get();
+        // $results = $clients1->diff($clients2)->toArray(); 
+        // $this->showData($results);
+
+        // // INTERSECT (items that are in both arrays)
+        // $clients1 = Client::take(5)->get();
+        // $clients2 = Client::where('id', '>', 3)->take(5)->get();
+        // $results = $clients1->intersect($clients2)->toArray(); 
+        // $this->showData($results);
+
+        // MAKEHIDDEN
+        $clients = Client::take(15)->get();
+        $clients->makeHidden(['id', 'updated_at', 'deleted_at', 'created_at']);
+        $this->showData($clients->toArray());
+    }
     
     private function showData($data)
     {

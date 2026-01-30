@@ -11,3 +11,4 @@ Route::get('/belongs-to', [MainController::class, 'belongsTo']);
 Route::get('/many-to-many', [MainController::class, 'manyToMany']);
 Route::get('/queries', [MainController::class, 'runningQueries']);
 Route::get('/same-results', [MainController::class, 'sameResults']);
+Route::get('/collections', [MainController::class, 'collections']);

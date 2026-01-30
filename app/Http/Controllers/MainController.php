@@ -45,6 +45,38 @@ class MainController extends Controller
         }
     }
 
+    public function OneToMany()
+    {
+        // // get client's id/name and all its phones
+        // $client = Client::find(10);
+        // $phones = $client->phones;
+        // echo "Client: $client->client_name <br>";
+        // echo "Phones: <br>";
+        // foreach ($phones as $phone) {
+        //     echo "$phone->phone_number <br>";
+        // }
+
+        // get client's id/name and all its phones (using with)
+        $client = Client::with('phones')->find(10);
+        echo "<br>";
+        echo "Client: $client->client_name <br>";
+        echo "Phones: <br>";
+        foreach ($client->phones as $phone) {
+            echo "$phone->phone_number <br>";
+        }
+
+        // show all client's data with their phones
+        $clients = Client::with('phones')->get();
+        foreach ($clients as $client) {
+            echo "<br>";
+            echo "Client: $client->client_name <br>";
+            echo "Phones: <br>";
+            foreach ($client->phones as $phone) {
+                echo "$phone->phone_number <br>";
+            }
+        }
+    }
+    
     private function showData($data)
     {
         echo '<pre>';
@@ -55,7 +87,7 @@ class MainController extends Controller
     {
         $tmp = [];
 
-        foreach ($data as $key => $value) {
+        foreach ($data as $value) {
             $tmp[] = (object) $value;
         }
 

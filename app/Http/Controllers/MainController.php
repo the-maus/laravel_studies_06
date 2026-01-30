@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Client;
+use App\Models\Phone;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
@@ -75,6 +76,21 @@ class MainController extends Controller
                 echo "$phone->phone_number <br>";
             }
         }
+    }
+
+    public function belongsTo()
+    {
+        // // find a phone and get the client it belongs to (inverse relation)
+        // $phone = Phone::find(10);
+        // $client = $phone->client;
+        // echo "Phone: {$phone->phone_number} <br>";
+        // echo "Client: {$client->client_name}";
+
+        // find a phone and get the client it belongs to (using with)
+        $phone = Phone::with('client')->find(10);
+        echo "<br>";
+        echo "Phone: {$phone->phone_number} <br>";
+        echo "Client: {$phone->client->client_name}";
     }
     
     private function showData($data)
